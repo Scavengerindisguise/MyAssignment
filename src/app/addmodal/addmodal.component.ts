@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
-export interface IjobData {
-  id: string,
-  title: string,
-  type: string,
-  description: string,
-  createdDate: string
-}
+import { IjobData } from '../interfaces/jobData';
 
 @Component({
   selector: 'app-addmodal',

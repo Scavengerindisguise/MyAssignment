@@ -9,7 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { AddmodalComponent } from './addmodal/addmodal.component';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatButtonModule,
     FormsModule,
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    AgGridModule.withComponents([])
   ],
   providers: [],
   bootstrap: [AppComponent]
