@@ -1,0 +1,39 @@
+<h4 mat-dialog-title>Add Job Details</h4>
+<hr>
+<div mat-dialog-content>
+    <form (ngSubmit)="addJobData(jobForm.value)" #jobForm='ngForm'>
+        <div class="form-group">
+            <label for="jobId">Job Id</label>
+            <input type="text" class="form-control form-control-sm" name="id" [(ngModel)]="jobData.id" id="jobId"
+                aria-describedby="jobId">
+        </div>
+        <div class="form-group">
+            <label for="title">Job Title</label>
+            <input type="text" class="form-control form-control-sm" name="title" [(ngModel)]="jobData.title" id="title"
+                aria-describedby="title">
+        </div>
+        <div class="form-group">
+            <label for="type">Job Type</label>
+            <select class="form-control form-control-sm" name="type" [(ngModel)]="jobData.type" id="type"
+                aria-describedby="type">
+                <option value="" selected>Choose</option>
+                <option>Permanent</option>
+                <option>Freelance</option>
+                <option>Contract</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="desc">Job Description</label>
+            <input type="text" class="form-control form-control-sm" name="description" [(ngModel)]="jobData.description"
+                id="desc" aria-describedby="desc">
+        </div>
+        <div class="form-group">
+            <label for="createdDate">Created On</label>
+            <input type="date" class="form-control form-control-sm" name="createdDate" [(ngModel)]="jobData.createdDate"
+                id="createdDate" aria-describedby="createdDate">
+        </div>
+        <div class="row justify-content-end mr-1">
+            <button type="submit" [mat-dialog-close]="jobData" class="btn btn-primary btn-sm">Add</button>
+        </div>
+    </form>
+</div>
