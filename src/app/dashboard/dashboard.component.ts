@@ -17,15 +17,15 @@ export class DashboardComponent implements OnInit {
   rowData: any[] = [];
   columnDefs = [
     { headerName: 'Job Id', field: 'id' },
-    { headerName: 'Job Title', field: 'title' },
-    { headerName: 'Job Type', field: 'type' },
-    { headerName: 'Job Description', field: 'description' },
-    { headerName: 'Job Created Date', field: 'createdDate' }
+    { headerName: 'Job Title', field: 'title', editable: true },
+    { headerName: 'Job Type', field: 'type', editable: true },
+    { headerName: 'Job Description', field: 'description', editable: true },
+    { headerName: 'Job Created Date', field: 'createdDate', editable: true }
   ];
 
   constructor(private jobDialog: MatDialog) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.rowData = JSON.parse(localStorage.getItem('selectedData'));
     // this.agGrid.api.setRowData(this.rowData);
 
@@ -38,21 +38,27 @@ export class DashboardComponent implements OnInit {
       this.jobData.push(result);
       this.rowData = this.jobData;
       this.saveData = JSON.stringify(this.rowData);
-      localStorage.setItem('selectedData',this.saveData);
+      localStorage.setItem('selectedData', this.saveData);
       console.log(this.rowData);
       this.agGrid.api.setRowData(this.rowData);
     });
   }
 
-deleteData(): void {
-  let x =[];
-   x = this.agGrid.api.getSelectedRows();
-  console.log(x);
-  let index = this.rowData.indexOf(x);
-  this.rowData.splice(index,1);
-  console.log(this.rowData);
-  this.agGrid.api.setRowData(this.rowData);
-}
+  deleteData(): void {
+    let selectedRow = [];
+    selectedRow = this.agGrid.api.getSelectedRows();
+    console.log(selectedRow);
+    let index = this.rowData.indexOf(selectedRow);
+    this.rowData.splice(index, 1);
+    console.log(this.rowData);
+    this.agGrid.api.setRowData(this.rowData);
+  }
+
+  updateData() {
+   
+   
+    
+  }
 
 
 
