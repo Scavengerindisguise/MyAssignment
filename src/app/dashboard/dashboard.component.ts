@@ -14,7 +14,6 @@ import { DataServiceService } from '../services/data-service.service';
 export class DashboardComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;
   jobData: IjobData[] = [];
-  saveData: string;
   rowData: any;
   columnDefs = [
     { headerName: 'Job Id', field: 'id' },
@@ -27,7 +26,7 @@ export class DashboardComponent implements OnInit {
   constructor(private jobDialog: MatDialog, private dataService: DataServiceService) { }
 
   ngOnInit() {
-    this.dataService.getList().subscribe(data => {
+    this.dataService.getJobList().subscribe(data => {
      console.log(data);
      this.rowData = data;
     });
@@ -37,30 +36,31 @@ export class DashboardComponent implements OnInit {
   openJobDialog(): void {
     const jobDialog = this.jobDialog.open(AddmodalComponent);
     jobDialog.afterClosed().subscribe(result => {
-      console.log('Job Details added in Dashboard');
-      this.jobData.push(result);
-      this.rowData = this.jobData;
-      this.saveData = JSON.stringify(this.rowData);
-      localStorage.setItem('selectedData', this.saveData);
-      console.log(this.rowData);
+      this.rowData.push(result);
       this.agGrid.api.setRowData(this.rowData);
     });
   }
 
-  // deleteData(): void {
-  //   let selectedRow = [];
-  //   selectedRow = this.agGrid.api.getSelectedRows();
-  //   console.log(selectedRow);
-  //   let index = this.rowData.indexOf(selectedRow);
-  //   this.rowData.splice(index, 1);
-  //   console.log(this.rowData);
-  //   this.agGrid.api.setRowData(this.rowData);
-  // }
+  deleteData(): void {
+    let selectedRow: IjobData[];
+    selectedRow = this.agGrid.api.getSelectedRows();
+    console.log(selectedRow);
+    this.dataService.deleteJobData(selectedRow[0].id).subscribe(data => {
+      console.log(data);
+    });
+    this.ngOnInit();
+    this.agGrid.api.setRowData(this.rowData);
+  }
 
   updateData() {
-   
-   
-    
+    let selectedRow: IjobData[];
+    selectedRow = this.agGrid.api.getSelectedRows();
+    console.log(selectedRow);
+    this.dataService.updateJobData(selectedRow[0].id, selectedRow[0]).subscribe(data => {
+      console.log(data);
+    });
+    this.ngOnInit();
+    this.agGrid.api.setRowData(this.rowData);
   }
 
 
