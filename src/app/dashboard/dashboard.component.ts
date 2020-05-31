@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddmodalComponent } from '../addmodal/addmodal.component';
 import { IjobData } from '../interfaces/jobData';
 import { AgGridAngular } from 'ag-grid-angular';
+import { DataServiceService } from '../services/data-service.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;
   jobData: IjobData[] = [];
   saveData: string;
-  rowData: any[] = [];
+  rowData: any;
   columnDefs = [
     { headerName: 'Job Id', field: 'id' },
     { headerName: 'Job Title', field: 'title', editable: true },
@@ -23,11 +24,13 @@ export class DashboardComponent implements OnInit {
     { headerName: 'Job Created Date', field: 'createdDate', editable: true }
   ];
 
-  constructor(private jobDialog: MatDialog) { }
+  constructor(private jobDialog: MatDialog, private dataService: DataServiceService) { }
 
   ngOnInit() {
-    this.rowData = JSON.parse(localStorage.getItem('selectedData'));
-    // this.agGrid.api.setRowData(this.rowData);
+    this.dataService.getList().subscribe(data => {
+     console.log(data);
+     this.rowData = data;
+    });
 
   }
 
@@ -44,15 +47,15 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  deleteData(): void {
-    let selectedRow = [];
-    selectedRow = this.agGrid.api.getSelectedRows();
-    console.log(selectedRow);
-    let index = this.rowData.indexOf(selectedRow);
-    this.rowData.splice(index, 1);
-    console.log(this.rowData);
-    this.agGrid.api.setRowData(this.rowData);
-  }
+  // deleteData(): void {
+  //   let selectedRow = [];
+  //   selectedRow = this.agGrid.api.getSelectedRows();
+  //   console.log(selectedRow);
+  //   let index = this.rowData.indexOf(selectedRow);
+  //   this.rowData.splice(index, 1);
+  //   console.log(this.rowData);
+  //   this.agGrid.api.setRowData(this.rowData);
+  // }
 
   updateData() {
    
