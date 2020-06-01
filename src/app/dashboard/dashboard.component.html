@@ -3,9 +3,29 @@
     <button mat-raised-button color="primary" (click)="openJobDialog()">ADD</button>
     <button mat-raised-button color="primary" (click)="updateData()">Update</button>
     <button mat-raised-button color="primary" (click)="deleteData()">DELETE</button>
-    <div *ngIf="jobData">
-        <ag-grid-angular style="width: 100%; height: 500px;" class="ag-theme-alpine" [rowData]="rowData"
+    <div>
+        <ag-grid-angular style="width: 100%; height: 500px;" class="ag-theme-alpine" [rowData]="(rowData | async).jobList"
             [columnDefs]="columnDefs" colDef.editable='true' rowSelection="multiple" rowMultiSelectWithClick="true" #agGrid>
         </ag-grid-angular>
     </div>
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>type</th>
+                <th>description</th>
+                <th>Created Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let jobData of (jobListState | async).jobList">
+                <td>{{jobData.id}}</td>
+                <td>{{jobData.title}}</td>
+                <td>{{jobData.type}}</td>
+                <td>{{jobData.description}}</td>
+                <td>{{jobData.createdDate}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>

@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
+import { jobListReducer } from './job-list.reducer';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { StoreModule } from '@ngrx/store';
     MatDialogModule,
     AgGridModule.withComponents([]),
     HttpClientModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({jobListData: jobListReducer})
   ],
   providers: [],
   bootstrap: [AppComponent]

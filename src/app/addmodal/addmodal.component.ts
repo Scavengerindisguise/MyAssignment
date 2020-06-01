@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
-import { IjobData } from '../interfaces/jobData';
+import { jobData } from '../interfaces/jobData';
 import { DataServiceService } from '../services/data-service.service';
+import { Store } from '@ngrx/store';
+import * as JobListActions from '../job-list.actions'
+
+
 
 @Component({
   selector: 'app-addmodal',
@@ -8,7 +12,7 @@ import { DataServiceService } from '../services/data-service.service';
   styleUrls: ['./addmodal.component.scss']
 })
 export class AddmodalComponent {
-  jobData: IjobData = {
+  jobData: jobData = {
     id: '',
     title: '',
     type: '',
@@ -16,13 +20,14 @@ export class AddmodalComponent {
     createdDate: ''
   };
 
-  constructor(private dataService:DataServiceService) { }
+  constructor(private dataService:DataServiceService, private store: Store<{jobListData: {jobList: jobData[]}}>) { }
 
   addJobData(form){
     console.log(form);
-    this.dataService.addJobData(this.jobData).subscribe(data => {
-      console.log(data);
-    });
+    this.store.dispatch(new JobListActions.AddJob(this.jobData));
+    // this.dataService.addJobData(this.jobData).subscribe(data => {
+    //   console.log(data);
+    // });
   }
 
 
