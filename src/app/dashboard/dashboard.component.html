@@ -8,28 +8,4 @@
             [columnDefs]="columnDefs" colDef.editable='true' rowSelection="multiple" rowMultiSelectWithClick="true" #agGrid>
         </ag-grid-angular>
     </div>
-    <table>
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>title</th>
-                <th>type</th>
-                <th>description</th>
-                <th>Created Date</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let jobData of (jobListState | async).jobList">
-                <td>{{jobData?.id}}</td>
-                <td>{{jobData?.title}}</td>
-                <td>{{jobData?.type}}</td>
-                <td>{{jobData?.description}}</td>
-                <td>{{jobData?.createdDate}}</td>
-                <td>
-                    <button (click)="newDelete(jobData)">Delete</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </div>

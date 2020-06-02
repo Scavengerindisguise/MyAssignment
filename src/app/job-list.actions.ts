@@ -12,7 +12,7 @@ export class AddJob implements Action{
 
 export class UpdateJob implements Action{
     readonly type = UPDATE_JOB;
-    constructor(public payload: {id: number, jobData: jobData}){}
+    constructor(public payload: {index: number, jobData: jobData}){}
 }
 
 export class DeleteJob implements Action{

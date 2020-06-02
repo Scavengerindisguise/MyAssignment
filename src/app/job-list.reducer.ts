@@ -16,13 +16,13 @@ export function jobListReducer(state = initialState, action: JobListActions.JobL
                 jobList: [...state.jobList, action.payload]
             };
         case JobListActions.UPDATE_JOB:
-            const jobData = state.jobList[action.payload.id];
+            const jobData = state.jobList[action.payload.index];
             const updatedJobData = {
                 ...jobData,
                 ...action.payload.jobData
             };
             const jobList = [...state.jobList];
-            jobList[action.payload.id] = updatedJobData;
+            jobList[action.payload.index] = updatedJobData;
             return {
                 ...state,
                 jobList: jobList
