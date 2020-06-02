@@ -17,23 +17,22 @@ export class DashboardComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;
   jobListState: Observable<{ jobList: jobData[] }>;
   rowData: any;
-  private columnDefs;
+  columnDefs = [
+    { headerName: 'Job Id', field: 'id' },
+    {
+      headerName: 'Job Title',
+      field: 'title',
+      editable: true
+    },
+    { headerName: 'Job Type', field: 'type', editable: true },
+    { headerName: 'Job Description', field: 'description', editable: true },
+    { headerName: 'Job Created Date', field: 'createdDate', editable: true }
+  ];
 
 
   constructor(private jobDialog: MatDialog, private dataService: DataServiceService,
     private store: Store<{ jobListData: { jobList: jobData[] } }>) {
-      this.columnDefs = [
-        { headerName: 'Job Id', field: 'id' },
-        {
-          headerName: 'Job Title',
-          field: 'title',
-          editable: true
-        },
-        { headerName: 'Job Type', field: 'type', editable: true },
-        { headerName: 'Job Description', field: 'description', editable: true },
-        { headerName: 'Job Created Date', field: 'createdDate', editable: true }
-      ];
-     }
+    }
 
   ngOnInit() {
     this.jobListState = this.store.select('jobListData');
