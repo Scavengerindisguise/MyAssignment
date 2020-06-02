@@ -13,7 +13,7 @@ import * as JobListActions from '../job-list.actions'
 })
 export class AddmodalComponent {
   jobData: jobData = {
-    id: '',
+    id: 0,
     title: '',
     type: '',
     description: '',

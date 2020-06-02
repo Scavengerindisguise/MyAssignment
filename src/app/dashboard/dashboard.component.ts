@@ -6,6 +6,8 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { DataServiceService } from '../services/data-service.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import * as JobListActions from '../job-list.actions'
+
 
 
 @Component({
@@ -45,7 +47,14 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  deleteData(): void {
+  deleteData(){
+    let selectedRow: jobData[];
+    selectedRow = this.agGrid.api.getSelectedRows();
+    console.log(selectedRow);
+    console.log(typeof(selectedRow[0].id));
+    this.store.dispatch(new JobListActions.DeleteJob(selectedRow[0].id));
+    console.log(this.rowData);
+    this.agGrid.api.setRowData(this.rowData);
     // let selectedRow: IjobData[];
     // selectedRow = this.agGrid.api.getSelectedRows();
     // console.log(selectedRow);
@@ -54,6 +63,10 @@ export class DashboardComponent implements OnInit {
     // });
     // this.ngOnInit();
     // this.agGrid.api.setRowData(this.rowData);
+  }
+  newDelete(data){
+    console.log(data.id);
+    this.store.dispatch(new JobListActions.DeleteJob(data.id));
   }
 
   updateData() {

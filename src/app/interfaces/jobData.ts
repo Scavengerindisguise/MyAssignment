@@ -7,6 +7,6 @@
 //   }
 
   export class jobData {
-    constructor(public id: string, public title: string, public type: string,
+    constructor(public id: number, public title: string, public type: string,
        public description: string, public createdDate: string) {}
   }
